@@ -1,20 +1,25 @@
 package com.controller;
 
+import com.exception.BadRequestDataException;
 import com.google.inject.Inject;
-import org.jooq.JSONFormat;
-import org.springframework.lang.NonNull;
+import com.mapper.RequestDeserializer;
+import com.request.LoginRequest;
+import com.service.TppLoginService;
+import com.servicedata.LoginData;
+import lombok.NonNull;
 import spark.Request;
 import spark.Response;
 
 public class TppController {
 
-//    @Inject
-//    @Inject
-//    LoginService loginService;
+    @Inject
+    TppLoginService tppLoginService;
+    @Inject
+    RequestDeserializer requestDeserializer;
 
-    private static final JSONFormat format = new JSONFormat().format(true).header(false).recordFormat(JSONFormat.RecordFormat.OBJECT);
-
-    public String handleLogin(@NonNull Request request, @NonNull Response response){
+    public String handleLogin(@NonNull Request request, @NonNull Response response) throws BadRequestDataException {
+        LoginRequest loginRequest = requestDeserializer.map(request.body());
+        LoginData data = tppLoginService.login(loginRequest);
         response.status(200);
         response.type("application/json");
         return "{\"id\": \"" + "id" + "\"}";
