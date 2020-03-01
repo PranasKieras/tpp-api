@@ -1,5 +1,7 @@
 package com.db;
 
+import com.exception.TppAppConfigurationException;
+import lombok.SneakyThrows;
 import org.jooq.codegen.GenerationTool;
 import org.jooq.meta.jaxb.*;
 
@@ -10,7 +12,8 @@ public class CodeGeneration {
     /**
      * method generates the classes in the src/db folder
      */
-    public static void main(String [] args){
+    @SneakyThrows
+    public static void main(String[] args) {
         Configuration configuration = new Configuration()
                 .withGenerator(new Generator()
                         .withDatabase(new Database()
@@ -19,7 +22,7 @@ public class CodeGeneration {
                                         new Property()
                                                 .withKey("scripts")
                                                 .withValue("src/main/resources/sql/setup-db.sql")
-                                        ))
+                                ))
                         .withGenerate(new Generate()
                                 .withPojos(Boolean.TRUE)
                                 .withDeprecationOnUnknownTypes(Boolean.FALSE))
@@ -28,9 +31,8 @@ public class CodeGeneration {
         try {
             GenerationTool.generate(configuration);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new TppAppConfigurationException("Unable to generate db stub", e);
         }
-
     }
 
 }

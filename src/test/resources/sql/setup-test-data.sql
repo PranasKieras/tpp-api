@@ -1,0 +1,4 @@
+INSERT into PS_USER VALUES(1L, '1111', '2222', '3333', 'token1');
+INSERT into PS_USER VALUES(2L, '2222', '3333', '4444', 'token2');
+INSERT into PS_USER VALUES(3L, '3333', '4444', '5555', 'token3');
+INSERT into PS_USER VALUES(4L, '4444', '5555', '6666', 'token4');

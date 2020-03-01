@@ -1,4 +1,4 @@
-package com.servicedata;
+package com.service.entities;
 
 import lombok.Data;
 

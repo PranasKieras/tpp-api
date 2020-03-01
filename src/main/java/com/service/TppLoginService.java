@@ -1,7 +1,7 @@
 package com.service;
 
 import com.request.LoginRequest;
-import com.servicedata.LoginData;
+import com.service.entities.LoginData;
 
 public interface TppLoginService {
 

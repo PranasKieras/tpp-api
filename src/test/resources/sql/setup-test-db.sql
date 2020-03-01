@@ -7,8 +7,3 @@ create table PS_USER(
     PHONE_NUMBER varchar2(100) NOT NULL,
     TOKEN varchar2(100) NOT NULL
 );
-
-
-
-
-
