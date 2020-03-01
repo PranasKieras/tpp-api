@@ -9,5 +9,4 @@ public class PSUser {
     @NonNull String bankLoginId;
     @NonNull String phoneNumber;
     @NonNull String loginToken;
-
 }

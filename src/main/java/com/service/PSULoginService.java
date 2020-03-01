@@ -1,9 +1,9 @@
 package com.service;
 
-import com.request.LoginRequest;
+import com.rest.request.LoginRequest;
 import com.service.entities.LoginData;
 
-public interface TppLoginService {
+public interface PSULoginService {
 
     LoginData login(LoginRequest loginRequest);
 }

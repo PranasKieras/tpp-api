@@ -1,11 +1,11 @@
 package com.dao.impl;
 
-import com.setup.MockDataSourceProvider;
+import com.datasource.MockDataSourceProvider;
 import com.dao.entity.PSUser;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.provider.DataSourceProvider;
+import com.datasource.DataSourceProvider;
 import com.service.entities.CreateUserTO;
 import com.service.entities.FetchUserTO;
 import org.junit.Before;

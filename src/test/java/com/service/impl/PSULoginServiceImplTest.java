@@ -1,12 +1,13 @@
 package com.service.impl;
 
-import com.service.LoginService;
 import com.dao.UserDAO;
+import com.service.RemoteLoginService;
+
 import com.dao.entity.PSUser;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.request.LoginRequest;
+import com.rest.request.LoginRequest;
 import com.service.entities.CreateUserTO;
 import com.service.entities.FetchUserTO;
 import com.service.entities.PSULoginTO;
@@ -26,18 +27,18 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentCaptor.*;
 
-public class TppLoginServiceImplTest {
+public class PSULoginServiceImplTest {
 
     @Rule
     public ExpectedException expected = ExpectedException.none();
     @Mock
-    private LoginService loginService;
+    private RemoteLoginService loginService;
     @Mock
     private UserDAO userDAO;
 
     private LoginRequest loginRequest;
 
-    private TppLoginServiceImpl tppLoginServiceImpl;
+    private PSULoginServiceImpl tppLoginServiceImpl;
 
     private Injector injector;
 
@@ -46,7 +47,7 @@ public class TppLoginServiceImplTest {
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         createTestInjections();
-        tppLoginServiceImpl = injector.getInstance(TppLoginServiceImpl.class);
+        tppLoginServiceImpl = injector.getInstance(PSULoginServiceImpl.class);
         loginRequest = new LoginRequest("1","123", "1234");
     }
 
@@ -94,14 +95,14 @@ public class TppLoginServiceImplTest {
 
     private void assertLoginToEquals(ArgumentCaptor<PSULoginTO> loginCaptor) {
         assertEquals("1", loginCaptor.getValue().getPersonalId());
-        assertEquals("1234", loginCaptor.getValue().getBankLoginId());
-        assertEquals("123", loginCaptor.getValue().getPhoneNumber());
+        assertEquals("123", loginCaptor.getValue().getBankLoginId());
+        assertEquals("1234", loginCaptor.getValue().getPhoneNumber());
     }
 
     private void assertCreateUserEquals(ArgumentCaptor<CreateUserTO> createUserCaptor) {
         assertEquals("1", createUserCaptor.getValue().getPersonalId());
-        assertEquals("1234", createUserCaptor.getValue().getBankLoginId());
-        assertEquals("123", createUserCaptor.getValue().getPhoneNumber());
+        assertEquals("123", createUserCaptor.getValue().getBankLoginId());
+        assertEquals("1234", createUserCaptor.getValue().getPhoneNumber());
         assertEquals("token", createUserCaptor.getValue().getLoginToken());
     }
 
@@ -114,8 +115,8 @@ public class TppLoginServiceImplTest {
 
     private void assertFetchUserEquals(ArgumentCaptor<FetchUserTO> captor) {
         assertEquals("1", captor.getValue().getPersonalId());
-        assertEquals("1234", captor.getValue().getBankLoginId());
-        assertEquals("123", captor.getValue().getPhoneNumber());
+        assertEquals("123", captor.getValue().getBankLoginId());
+        assertEquals("1234", captor.getValue().getPhoneNumber());
     }
 
 
@@ -124,7 +125,7 @@ public class TppLoginServiceImplTest {
             @Override
             protected void configure() {
                 bind(UserDAO.class).toInstance(userDAO);
-                bind(LoginService.class).toInstance(loginService);
+                bind(RemoteLoginService.class).toInstance(loginService);
             }
         });
     }

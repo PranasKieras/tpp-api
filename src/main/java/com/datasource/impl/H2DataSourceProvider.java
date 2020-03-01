@@ -1,18 +1,16 @@
-package com.setup;
+package com.datasource.impl;
 
 import com.google.inject.Singleton;
-import com.provider.DataSourceProvider;
+import com.datasource.DataSourceProvider;
 import lombok.SneakyThrows;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
-import javax.naming.ConfigurationException;
 import javax.sql.DataSource;
-import java.io.*;
+import java.io.InputStream;
 import java.net.URI;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,40 +18,38 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 @Singleton
-public class MockDataSourceProvider implements DataSourceProvider {
+public class H2DataSourceProvider implements DataSourceProvider {
 
     private static final String PROPERTIES_FILE_LOCATION = "/config.properties";
 
-    private DataSource ds;
+    private DataSource dataSource;
 
-    public MockDataSourceProvider() {
+    public H2DataSourceProvider() {
         Properties props = getProperties();
-        ds = createDataSource(props);
+        dataSource = createDataSource(props);
         setupData(props);
     }
 
     @Override
     public DataSource getDataSource() {
-        return ds;
+        return dataSource;
     }
 
     private void setupData(Properties properties) {
         String dbSetupScript = properties.getProperty("db.schema.script");
-        String dataSetupScript = properties.getProperty("db.data.script");
 
         DSLContext ctx = DSL.using(getDataSource(), SQLDialect.H2);
         ctx.query(getSQL(dbSetupScript)).execute();
-        ctx.query(getSQL(dataSetupScript)).execute();
     }
 
     private DataSource createDataSource(Properties properties) {
-        final BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName(properties.getProperty("db.driver"));
-        ds.setUrl(properties.getProperty("db.url"));
-        ds.setUsername(properties.getProperty("db.username"));
-        ds.setPassword(properties.getProperty("db.password"));
+        final BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setDriverClassName(properties.getProperty("db.driver"));
+        basicDataSource.setUrl(properties.getProperty("db.url"));
+        basicDataSource.setUsername(properties.getProperty("db.username"));
+        basicDataSource.setPassword(properties.getProperty("db.password"));
 
-        return ds;
+        return basicDataSource;
     }
 
     @SneakyThrows

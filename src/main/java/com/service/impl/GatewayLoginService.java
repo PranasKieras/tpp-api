@@ -1,10 +1,12 @@
 package com.service.impl;
 
-import com.service.LoginService;
+import com.google.inject.Singleton;
+import com.service.RemoteLoginService;
 import com.service.entities.PSULoginTO;
 import com.service.entities.ValidateTokenTO;
 
-public class LoginServiceImpl implements LoginService {
+@Singleton
+public class GatewayLoginService implements RemoteLoginService {
     @Override
     public String login(PSULoginTO loginTO) {
         return null;

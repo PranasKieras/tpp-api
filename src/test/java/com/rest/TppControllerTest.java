@@ -1,12 +1,11 @@
-package com.controller;
+package com.rest;
 
 import com.exception.BadRequestDataException;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.mapper.RequestDeserializer;
-import com.request.LoginRequest;
-import com.service.TppLoginService;
+import com.rest.request.LoginRequest;
+import com.service.PSULoginService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,7 +30,7 @@ public class TppControllerTest {
     @Mock
     private Response response;
     @Mock
-    private TppLoginService tppLoginService;
+    private PSULoginService tppLoginService;
     @Mock
     private RequestDeserializer requestDeserializer;
 
@@ -98,7 +97,7 @@ public class TppControllerTest {
         injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(TppLoginService.class).toInstance(tppLoginService);
+                bind(PSULoginService.class).toInstance(tppLoginService);
                 bind(RequestDeserializer.class).toInstance(requestDeserializer);
             }
         });

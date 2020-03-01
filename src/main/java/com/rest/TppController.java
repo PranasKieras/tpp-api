@@ -1,10 +1,9 @@
-package com.controller;
+package com.rest;
 
 import com.exception.BadRequestDataException;
 import com.google.inject.Inject;
-import com.mapper.RequestDeserializer;
-import com.request.LoginRequest;
-import com.service.TppLoginService;
+import com.rest.request.LoginRequest;
+import com.service.PSULoginService;
 import lombok.NonNull;
 import spark.Request;
 import spark.Response;
@@ -12,7 +11,7 @@ import spark.Response;
 public class TppController {
 
     @Inject
-    TppLoginService tppLoginService;
+    PSULoginService tppLoginService;
     @Inject
     RequestDeserializer requestDeserializer;
 

@@ -1,7 +1,6 @@
-package com.db;
+package config.codegen;
 
 import com.exception.TppAppConfigurationException;
-import lombok.SneakyThrows;
 import org.jooq.codegen.GenerationTool;
 import org.jooq.meta.jaxb.*;
 
@@ -12,8 +11,7 @@ public class CodeGeneration {
     /**
      * method generates the classes in the src/db folder
      */
-    @SneakyThrows
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TppAppConfigurationException {
         Configuration configuration = new Configuration()
                 .withGenerator(new Generator()
                         .withDatabase(new Database()

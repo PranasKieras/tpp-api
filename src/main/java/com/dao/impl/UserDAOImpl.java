@@ -2,9 +2,10 @@ package com.dao.impl;
 
 import com.dao.UserDAO;
 import com.dao.entity.PSUser;
-import com.db.codegen.tables.records.PsUserRecord;
+import com.db.codegen.tables.records .PsUserRecord;
 import com.google.inject.Inject;
-import com.provider.DataSourceProvider;
+import com.datasource.DataSourceProvider;
+import com.google.inject.Singleton;
 import com.service.entities.CreateUserTO;
 import com.service.entities.FetchUserTO;
 import lombok.NonNull;
@@ -14,6 +15,7 @@ import org.jooq.impl.DSL;
 import java.util.Optional;
 import static com.db.codegen.Tables.PS_USER;
 
+@Singleton
 public class UserDAOImpl implements UserDAO {
 
     @Inject

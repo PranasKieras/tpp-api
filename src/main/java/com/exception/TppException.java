@@ -12,4 +12,11 @@ public class TppException extends Exception{
         super(message);
         this.code = code;
     }
+
+    public String getFormattedMessage() {
+        return "{" +
+               "\"code\":" + code + "\n" +
+               "\t\"message\":" + "\"" + getMessage() + "\"\n" +
+               '}';
+    }
 }
